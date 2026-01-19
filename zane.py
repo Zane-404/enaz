@@ -1,15 +1,9 @@
 cat = []
-No_items1 = []
-No_items2 = []
-No_items3 = []
-No_items4 = []
-No_items5 = []
-
 
 #Drinks
-drink = ['Neo Green Tea','Melo Chocolate Malt Milk','Very-Fair Full Cream Milk','Nirigold UHT Milk']
+drink = ['Green Tea','Malt Milk','Cream Milk','UHT Milk']
 price1 = [3.00,2.85,3.50,4.15]
-qnty1 = [5,0,0,0]
+qnty1 = [0,0,0,0]
 #Beer
 Beer = ['Lion','Panda','Axe','Henekan']
 price2 = [52.00,78.00,58.00,68.00]
@@ -26,7 +20,6 @@ qnty4 = [0,0,0,0]
 Snacks = ['Seaweed','Cracker','Cookie','Crackers']
 price5 = [3.1,2.05,4.80,3.55]
 qnty5 = [0,0,0,0]
-
 
 def theclear():
     for i in range(50):
@@ -151,8 +144,12 @@ def menu5():
 
 #checkout(a) and math(b)
 def checkout():
-    combined_list = No_items1 + No_items2 + No_items3 + No_items4 + No_items5
-    if len(combined_list) == 0:
+    combined_list = qnty1 + qnty2 + qnty3 + qnty4 + qnty5
+    print(combined_list)
+    x = 0
+    for i in combined_list:
+        x += i
+    if x== 0:
         theclear()
         print('-------------------------------------------------')
         print('CART')
@@ -169,9 +166,42 @@ def checkout():
         print('-------------------------------------------------')
         print('CART')
         print('-------------------------------------------------')
-        print('test')
-        input('test')
+        print('Items\t\tQuantity\tPrice\tTotal Price')
+        y = 0
+        for i in combined_list:
+            if i>0:
+                if y < 4:
+                    item = drink[y]
+                    price = price1[y] * i
 
+                elif 4 <= y < 8:
+                    item = Beer[y-4]
+                    price = price2[y-4] * i
+
+                elif 8 <= y < 12:
+                    item = Frozen[y-8]
+                    price = price3[y-8] * i
+
+                elif 12 <= y < 16:
+                    item = Household[y-12]
+                    price = price4[y-12] * i
+                
+                else:
+                    item = Snacks[y-16]
+                    price = price5[y-16] * i
+                print(f'{item}\t\t{i}\t\t\t${price}')
+
+            y += 1
+            
+        print('-------------------------------------------------')
+        input('test')
+        
+    
+        
+
+            
+        
+  
 #crux of the programme
 while True:
 
