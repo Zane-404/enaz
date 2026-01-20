@@ -129,7 +129,7 @@ def menu5():
         print('-------------------------------------------------')
         for i in range(4):
             print(f'[{i + 1}] - {Snacks[i]} ${price5[i]}')
-        print('-------------------------------------------------')
+        print('---------------------------------------------------')
         choice5 = int(input('Select your option:'))
         if choice5 > 4:
             print('invalid option')
@@ -151,9 +151,9 @@ def checkout():
         x += i
     if x== 0:
         theclear()
-        print('-------------------------------------------------')
+        print('--------------------------------------------------------------------------------')
         print('CART')
-        print('-------------------------------------------------')
+        print('--------------------------------------------------------------------------------')
         print('the cart seems rather empty here...')
         choiceout = input('return to menu?[Y/N]?').lower()
         if choiceout == 'y':
@@ -163,10 +163,10 @@ def checkout():
 
     else:
         theclear()
-        print('-------------------------------------------------')
-        print('CART')
-        print('-------------------------------------------------')
-        print('Items\t\tQuantity\tPrice\tTotal Price')
+        print('--------------------------------------------------------------------------------')
+        print('JUST_ORDER CART')
+        print('--------------------------------------------------------------------------------')
+        print('Items\t\t\tQuantity\tPrice/$\tTotal Price/$')
         y = 0
         for i in combined_list:
             if i>0:
@@ -189,11 +189,17 @@ def checkout():
                 else:
                     item = Snacks[y-16]
                     price = price5[y-16] * i
-                print(f'{item}\t\t{i}\t\t\t${price}')
+                
+                item_width = 17
+                item_display = item[:item_width]
+                from decimal import Decimal
+                price_individual = Decimal(price / i).quantize(Decimal('0.01'))
+                price = Decimal(price).quantize(Decimal('0.01'))
+                print(f'{item_display:<17}{i :>14}{price_individual:>15}{price:>10}')
 
             y += 1
             
-        print('-------------------------------------------------')
+        print('--------------------------------------------------------------------------------')
         input('test')
         
     
