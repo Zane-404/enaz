@@ -1,5 +1,5 @@
 cat = []
-
+total = []
 #Drinks
 drink = ['Green Tea','Malt Milk','Cream Milk','UHT Milk']
 price1 = [3.00,2.85,3.50,4.15]
@@ -197,17 +197,26 @@ def checkout():
                 price = Decimal(price).quantize(Decimal('0.01'))
                 print(f'{item_display:<17}{i :>14}{price_individual:>15}{price:>10}')
 
+                #adding to total list
+                total.append(price)
+
             y += 1
-            
+        
         print('--------------------------------------------------------------------------------')
-        input('test')
+        total_sum = sum(total)
+        print(f'Total Amount payable:${total_sum}')
+        print('--------------------------------------------------------------------------------')
+        PAYDAY = input('proceed to checkout?[Y/N}?:').lower()
         
     
+
+
+
+    #asking for discount/membership
+
+
         
 
-            
-        
-  
 #crux of the programme
 while True:
 
