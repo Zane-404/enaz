@@ -21,6 +21,12 @@ Snacks = ['Seaweed','Cracker','Cookie','Crackers']
 price5 = [3.1,2.05,4.80,3.55]
 qnty5 = [0,0,0,0]
 
+#memberships
+membership = ['Seniors','JUST_ORDER membership','NSmen']
+discount = [0.10,0.08,0.05]
+discount_print = [10,8,5]
+
+
 def theclear():
     for i in range(50):
         print('\n')
@@ -207,7 +213,31 @@ def checkout():
         print(f'Total Amount payable:${total_sum}')
         print('--------------------------------------------------------------------------------')
         PAYDAY = input('proceed to checkout?[Y/N}?:').lower()
+        if PAYDAY == 'y':
+            for i in range(3):
+                print(f'[{i + 1}] {membership[i]} - {discount_print[i]}%')
+            print('[4] No membership, I am lazy and do not contribute to society')
+            choosemember = int(input('Please select your membership:'))
+
+            sum_after_gst =total_sum*0.91
+
+            if choosemember == 1:
+                sum_after_gst = (sum_after_gst)*0.90
+            elif choosemember == 2:
+                sum_after_gst = (sum_after_gst)*0.92
+            elif choosemember == 3:
+                sum_after_gst = (sum_after_gst)*0.95
+            else:
+                print('proceeding without membership discount')
+                
+            
+            input(f'final amount after gst and membership - ${sum_after_gst}')
+
+        else:
+            return
         
+
+    
     
 
 
