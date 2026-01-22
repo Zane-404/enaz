@@ -26,6 +26,12 @@ membership = ['Seniors','JUST_ORDER membership','NSmen']
 discount = [0.10,0.08,0.05]
 discount_print = [10,8,5]
 
+#discount rates
+from decimal import Decimal
+GST = Decimal('1.09')
+NSman_rate = Decimal('0.05')
+Senior_rate = Decimal('0.10')
+JUST_ORDER_rate = Decimal('0.08')
 
 def theclear():
     for i in range(50):
@@ -214,40 +220,61 @@ def checkout():
         print('--------------------------------------------------------------------------------')
         PAYDAY = input('proceed to checkout?[Y/N}?:').lower()
         if PAYDAY == 'y':
+            #asking for discount/membership
             for i in range(3):
                 print(f'[{i + 1}] {membership[i]} - {discount_print[i]}%')
             print('[4] No membership, I am lazy and do not contribute to society')
+            ('--------------------------------------------------------------------------------')
             choosemember = int(input('Please select your membership:'))
+            decimal_total_sum = Decimal(str(total_sum)) #important conversion to remove 'flaot' errors
 
-            sum_after_gst =total_sum*0.91
-
+            #go variables for rates decimal
             if choosemember == 1:
-                sum_after_gst = (sum_after_gst)*0.90
+                discount_amount = decimal_total_sum * Senior_rate
             elif choosemember == 2:
-                sum_after_gst = (sum_after_gst)*0.92
+                discount_amount = decimal_total_sum * JUST_ORDER_rate
             elif choosemember == 3:
-                sum_after_gst = (sum_after_gst)*0.95
+                discount_amount = decimal_total_sum * NSman_rate
             else:
-                print('proceeding without membership discount')
-                
-            
-            input(f'final amount after gst and membership - ${sum_after_gst}')
+                print('proceeding without membership discount...')
+                discount_amount = Decimal('0')  
+            final_amount = Decimal(total_sum - discount_amount).quantize(Decimal('0.01'))
+            After_GST = Decimal(final_amount * GST).quantize(Decimal('0.01'))
+            ('--------------------------------------------------------------------------------')
+            print(f'Final amount payable : ${After_GST}')
+            ('--------------------------------------------------------------------------------')
+            final_checkout_ans = input('Confirm payment?[y/n]:').lower()
+            if final_checkout_ans == 'y':
+                #RECEIPTTTTTTTTTTTTTTTT
+                print('--------------------------------------------------------------------------------')
+                print('RECEIPT')
+                print('--------------------------------------------------------------------------------')
+                #codes just repeat from checkout
+                print('Items\t\t\tQuantity\tPrice/$\tTotal Price/$')
+                print(f'{item_display:<17}{i :>14}{price_individual:>15}{price:>10}')
+                print('--------------------------------------------------------------------------------')
+                if choosemember == 1:
+                    print('discount:Senior ~ 10%')
+                    print('enjoy your golden years, see you again!(probably)')
+                elif choosemember == 2:
+                    print('JUST_ORDER member discount ~ 8%')
+                    print('Thank you for supporting JUST_ORDER!')
+                elif choosemember == 3:
+                    print('Ns men discount ~ 5%')
+                    print('Thank you for your service for the country, dont die on us!')
+                print(f'Total amount before discount :${total_sum}')
+                print(f'Total amount after discount if applicable :${final_amount}')
+                print(f'Total amount after 9% GST :${After_GST} ')
+                print('--------------------------------------------------------------------------------')
+                input('Thank you for shopping with JUST_ORDER! Hope to see you again soon!')
+            else:
+                return
 
         else:
             return
         
-
-    
-    
-
-
-
-    #asking for discount/membership
-
-
-        
-
-#crux of the programme
+            
+#Start of the programme
 while True:
 
     print(menu())
