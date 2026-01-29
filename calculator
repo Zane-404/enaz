@@ -1,18 +1,21 @@
 import tkinter 
 import math
 
+
 #symbols define
 button_values = [
-    ['del','AC','%','/'],
-    ['7','8','9','*'],
+    ['x^a','n√x','1/x','π'],    #my own extension
+    ['del','AC','%','÷'],
+    ['7','8','9','×'],
     ['4','5','6','-'],
     ['1','2','3','+'],
     ['+/-','0','.','=']]
 
-right_symbols = ['/','*','-','+','=']
+right_symbols = ['÷','×','-','+','=']
 top_symbols = ['del','AC','%']
+ext_symbols = ['x^a','n√x','1/x','π']
 
-row_count = len(button_values) #5
+row_count = len(button_values) #6
 column_count = len(button_values[0]) #4
 
 #colour define
@@ -21,6 +24,7 @@ black = '#1C1C1C'
 Dark_grey = '#505050'
 orange = '#FF9500'
 white ='white'
+blue = '#57B9FF'
 
 #calc window setup
 window = tkinter.Tk() #create window
@@ -41,6 +45,8 @@ for row in range(row_count):
             button.config(foreground = black, background = Light_grey)
         elif value in right_symbols:
             button.config(foreground=white, background = orange)
+        elif value in ext_symbols:
+            button.config(foreground=white,background=blue)
         else:
             button.config(foreground=white,background=Dark_grey)
 
@@ -69,7 +75,10 @@ def remove_zero_decimal(num):
 def button_clicked(value):
     global right_symbols,top_symbols,label,A,operator,B
 
+def limit_to_7sf(num):
     
+
+
     #RIGHT SYMBOLSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
     if value in right_symbols:
         if value == '=':
@@ -82,15 +91,16 @@ def button_clicked(value):
                     result = numA + numB
                 elif operator == '-':
                     result = numA - numB
-                elif operator == '/':
+                elif operator == '÷':
                     result = numA / numB
-                elif operator == '*':
+                elif operator == '×':
                     result = numA * numB
                 label['text'] = remove_zero_decimal(result)
+                
 
                 clear_all
 
-        elif value in '+-*/':
+        elif value in '+-×÷':
             if operator is None:#ensure "A" is not lost 
                 A = label['text']
                 label['text'] = '0'
@@ -109,6 +119,24 @@ def button_clicked(value):
         else:#'%'
             result = float(label['text']) / 100
             label['text'] = remove_zero_decimal(result)
+
+    #extension function
+    elif value in ext_symbols:
+        if value == 'π':
+            pass
+
+                
+            
+        
+
+
+
+
+
+
+
+
+
     else: #digits or .
         if value == '.':
             if value not in label['text']:
@@ -121,6 +149,8 @@ def button_clicked(value):
         elif value == '+/-':
             result = float(label['text']) * -1
             label['text'] = remove_zero_decimal(result)
+
+
 
 
 
