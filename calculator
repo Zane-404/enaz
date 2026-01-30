@@ -72,13 +72,16 @@ def remove_zero_decimal(num):
         num = int(num)
     return str(num)
 
+def format_7sf(num):
+    return format(num, ".7g")
+
+def power(num):
+    global expression
+    expression += '**'
+
 def button_clicked(value):
     global right_symbols,top_symbols,label,A,operator,B
-
-def limit_to_7sf(num):
     
-
-
     #RIGHT SYMBOLSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
     if value in right_symbols:
         if value == '=':
@@ -95,10 +98,8 @@ def limit_to_7sf(num):
                     result = numA / numB
                 elif operator == '×':
                     result = numA * numB
-                label['text'] = remove_zero_decimal(result)
-                
-
-                clear_all
+                label['text'] = remove_zero_decimal(result)               
+                clear_all()
 
         elif value in '+-×÷':
             if operator is None:#ensure "A" is not lost 
@@ -118,24 +119,22 @@ def limit_to_7sf(num):
             #123 -> 12 for e.g.
         else:#'%'
             result = float(label['text']) / 100
-            label['text'] = remove_zero_decimal(result)
+            label['text']=remove_zero_decimal(result)
 
     #extension function
     elif value in ext_symbols:
         if value == 'π':
+            label['text'] = format_7sf(math.pi)
+
+        elif value == '1/x':
+             result = 1 / float(label['text'])
+             label['text']= remove_zero_decimal(format_7sf(result))
+
+        elif value == 'n√x':
             pass
 
-                
-            
-        
-
-
-
-
-
-
-
-
+        else: #'x^a'
+            pass
 
     else: #digits or .
         if value == '.':
