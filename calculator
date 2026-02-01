@@ -75,10 +75,6 @@ def remove_zero_decimal(num):
 def format_7sf(num):
     return format(num, ".7g")
 
-def power(num):
-    global expression
-    expression += '**'
-
 def button_clicked(value):
     global right_symbols,top_symbols,label,A,operator,B
 
