@@ -4,7 +4,7 @@ import math
 
 #symbols define
 button_values = [
-    ['x^a','n√x','1/x','π'],    #my own extension
+    ['x²','√x','1/x','π'],    #my own extension
     ['del','AC','%','÷'],
     ['7','8','9','×'],
     ['4','5','6','-'],
@@ -13,7 +13,7 @@ button_values = [
 
 right_symbols = ['÷','×','-','+','=']
 top_symbols = ['del','AC','%']
-ext_symbols = ['x^a','n√x','1/x','π']
+ext_symbols = ['x²','√x','1/x','π']
 
 row_count = len(button_values) #6
 column_count = len(button_values[0]) #4
@@ -81,6 +81,8 @@ def power(num):
 
 def button_clicked(value):
     global right_symbols,top_symbols,label,A,operator,B
+
+
     
     #RIGHT SYMBOLSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
     if value in right_symbols:
@@ -98,7 +100,7 @@ def button_clicked(value):
                     result = numA / numB
                 elif operator == '×':
                     result = numA * numB
-                label['text'] = remove_zero_decimal(result)               
+                label['text'] = format_7sf(result)             
                 clear_all()
 
         elif value in '+-×÷':
@@ -127,14 +129,16 @@ def button_clicked(value):
             label['text'] = format_7sf(math.pi)
 
         elif value == '1/x':
-             result = 1 / float(label['text'])
-             label['text']= remove_zero_decimal(format_7sf(result))
+            result = 1 / float(label['text'])
+            label['text']= format_7sf(result)
 
-        elif value == 'n√x':
-            pass
+        elif value == '√x':
+            result = float(label['text']) ** 0.5
+            label['text'] = format_7sf(result)
 
-        else: #'x^a'
-            pass
+        else: #'x²'
+            result = float(label['text']) ** 2
+            label['text'] = format_7sf(result)
 
     else: #digits or .
         if value == '.':
